@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:36:09 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/10 09:11:22 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/10 13:48:41 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,22 +70,6 @@ int		ft_strlen(const char *str)
 		i++;
 	return (i);
 }
-
-/*char	*ft_strchr(const char *str, int c)
-{
-	int i;
-
-	if ((char)c == '\0')
-		return ((char *)str + ft_strlen(str));
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == (unsigned char)c)
-			return ((char *)str + i);
-		i++;
-	}
-	return (NULL);
-}*/
 
 char	*ft_strcpy(char *dst, const char *src)
 {

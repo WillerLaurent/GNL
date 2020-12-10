@@ -6,17 +6,19 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/10 10:40:14 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/10 15:08:04 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 100
+#define BUFFER_SIZE 10
+#include <stdio.h>
 
-char	*read_line(char *str, int fd)
+
+char 	*read_line(char *str, int fd)
 {
-	int		r;
-	char	buffer[BUFFER_SIZE + 1];
+	int 	r;
+	char 	buffer[BUFFER_SIZE + 1];
 
 	while ((r = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
@@ -31,13 +33,16 @@ int		get_next_line(int fd, char **line)
 	static char *str;
 	int			i;
 
-	if (!(str = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
-		return (-1);
+	if (!str)
+	{
+		if (!(str = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
+			return (-1);
+	}
 	if (*str)
 		ft_strcpy(*line, str);
 	str = read_line(str, fd);
 	i = 0;
-	if (*str)
+	if (str[i])
 	{
 		while (str[i] != '\n' && str[i])
 			i++;
@@ -55,14 +60,12 @@ int		get_next_line(int fd, char **line)
 	return (0);
 }
 
-#include <stdio.h>
-
 int		main(int ac, char **av)
 {
-	char *line;
-	int fd;
-	int i;
-	int j;
+	char	*line;
+	int 	fd;
+	int 	i;
+	int 	j;
 
 	(void)ac;
 	(void)av;
@@ -76,4 +79,7 @@ int		main(int ac, char **av)
 		free(line);
 		//line = NULL;
 	}
+	printf("%d Ligne %d : %s\n", j, i, line);
+	free(line);
+	close(fd);
 }
