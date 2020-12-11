@@ -6,13 +6,15 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/10 15:08:04 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 07:38:34 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 10
+#define BUFFER_SIZE 1000
 #include <stdio.h>
+
+
 
 
 char 	*read_line(char *str, int fd)
