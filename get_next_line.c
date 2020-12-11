@@ -6,21 +6,28 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/11 07:38:34 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/11 08:49:00 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 1000
-#include <stdio.h>
 
-
-
-
-char 	*read_line(char *str, int fd)
+int		check_error(char **line, char **str, int fd)
 {
-	int 	r;
-	char 	buffer[BUFFER_SIZE + 1];
+	if (line == NULL || fd == -1)
+		return (0);
+	if (!*str)
+	{
+		if (!(*str = malloc((BUFFER_SIZE + 1) * sizeof(char))))
+			return (0);
+	}
+	return (1);
+}
+
+char	*read_line(char *str, int fd)
+{
+	int		r;
+	char	buffer[BUFFER_SIZE + 1];
 
 	while ((r = read(fd, buffer, BUFFER_SIZE)) > 0)
 	{
@@ -32,14 +39,11 @@ char 	*read_line(char *str, int fd)
 
 int		get_next_line(int fd, char **line)
 {
-	static char *str;
+	static char	*str;
 	int			i;
 
-	if (!str)
-	{
-		if (!(str = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char))))
-			return (-1);
-	}
+	if (!check_error(line, &str, fd))
+		return (-1);
 	if (*str)
 		ft_strcpy(*line, str);
 	str = read_line(str, fd);
@@ -60,28 +64,4 @@ int		get_next_line(int fd, char **line)
 	else
 		(*line) = ft_strdup("");
 	return (0);
-}
-
-int		main(int ac, char **av)
-{
-	char	*line;
-	int 	fd;
-	int 	i;
-	int 	j;
-
-	(void)ac;
-	(void)av;
-	i = 1;
-	fd = open("texte", O_RDONLY);
-	//fd = 0;
-	while ((j = get_next_line(fd, &line)) > 0)
-	{
-		printf("%d Ligne %d : %s\n", j, i, line);
-		i++;
-		free(line);
-		//line = NULL;
-	}
-	printf("%d Ligne %d : %s\n", j, i, line);
-	free(line);
-	close(fd);
 }
