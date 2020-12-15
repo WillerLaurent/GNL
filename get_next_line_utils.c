@@ -6,19 +6,23 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:36:09 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/10 13:48:41 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/15 09:25:35 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
 
-char	*ft_strjoin(const char *s1, const char *s2)
+char *ft_strjoin(char *s1, char *s2)
 {
-	int		len_s1;
-	int		len_s2;
-	int		i;
-	int		j;
-	char	*str;
+	int len_s1;
+	int len_s2;
+	int i;
+	int j;
+	char *str;
+
+	printf("s1 = [%s]\n", s1);
+	printf("s2 = [%s]\n", s2);
 
 	len_s1 = ft_strlen(s1);
 	len_s2 = ft_strlen(s2);
@@ -38,14 +42,15 @@ char	*ft_strjoin(const char *s1, const char *s2)
 		j++;
 	}
 	str[i + j] = 0;
+	free(s1);
 	return (str);
 }
 
-char	*ft_strdup(const char *str)
+char *ft_strdup(const char *str)
 {
-	char	*cpy;
-	int		len;
-	int		i;
+	char *cpy;
+	int len;
+	int i;
 
 	i = 0;
 	len = ft_strlen(str);
@@ -61,7 +66,7 @@ char	*ft_strdup(const char *str)
 	return (cpy);
 }
 
-int		ft_strlen(const char *str)
+int ft_strlen(const char *str)
 {
 	int i;
 
@@ -71,7 +76,7 @@ int		ft_strlen(const char *str)
 	return (i);
 }
 
-char	*ft_strcpy(char *dst, const char *src)
+char *ft_strcpy(char *dst, char *src)
 {
 	int i;
 
@@ -85,11 +90,11 @@ char	*ft_strcpy(char *dst, const char *src)
 	return (dst);
 }
 
-char	*ft_substr(const char *str, unsigned int start, size_t len)
+char *ft_substr(const char *str, unsigned int start, size_t len)
 {
-	char			*sub_str;
-	unsigned int	len_str;
-	size_t			i;
+	char *sub_str;
+	unsigned int len_str;
+	size_t i;
 
 	if (str == NULL)
 		return (NULL);
@@ -108,4 +113,51 @@ char	*ft_substr(const char *str, unsigned int start, size_t len)
 	}
 	sub_str[i] = 0;
 	return (sub_str);
+}
+
+char *ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t i;
+
+	i = 0;
+	if (dstsize > 0)
+	{
+		while (i < (dstsize - 1) && src[i])
+		{
+			dst[i] = src[i];
+			i++;
+		}
+		dst[i] = 0;
+	}
+	return (dst);
+}
+
+void ft_bzero(void *s, size_t n)
+{
+	unsigned long i;
+	unsigned char *str;
+
+	str = (unsigned char *)s;
+	i = 0;
+	if (n == 0)
+		return;
+	while (i < n)
+	{
+		str[i] = 0;
+		i++;
+	}
+	s = str;
+}
+
+void *ft_calloc(size_t count, size_t size)
+{
+	size_t i;
+	void *array;
+
+	i = 0;
+	array = (void *)malloc(count * size);
+	if (!array)
+		return (NULL);
+	ft_bzero(array, count * size);
+	return (array);
 }
