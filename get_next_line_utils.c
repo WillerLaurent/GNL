@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:36:09 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/16 09:05:45 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 11:53:34 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ char	*ft_strjoin(char *s1, char *s2)
 
 	i = 0;
 	j = 0;
-	if (!(str = malloc((ft_strlen(s1) + ft_strlen(s2) + 1) * sizeof(char))))
+	if (!(str = ft_calloc((ft_strlen(s1) + ft_strlen(s2) + 1), sizeof(char))))
 		return (NULL);
 	str[0] = 0;
 	while (s1[i])

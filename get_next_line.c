@@ -6,13 +6,11 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/16 09:06:03 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 14:43:23 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-#define BUFFER_SIZE 1
 
 int		check_line(char *str)
 {
@@ -50,7 +48,11 @@ int		cut_string(char **line, char *buffover, char *buffer, int r)
 		i++;
 	ft_strlcpy(buffover, buffer + i + 1, BUFFER_SIZE + 1);
 	buffer[i] = 0;
-	*line = ft_strjoin(*line, buffer);
+	if (!(*line = ft_strjoin(*line, buffer)))
+	{
+		free(*line);
+		return (0);
+	}
 	ft_bzero(buffer, BUFFER_SIZE);
 	if (r > 0)
 		return (1);
@@ -62,7 +64,10 @@ int		read_line(char **line, int fd, char *buffer, char *buffover)
 	int r;
 
 	if (!(*line = ft_strjoin(*line, buffover)))
+	{
+		free(*line);
 		return (0);
+	}
 	r = read(fd, buffer, BUFFER_SIZE);
 	buffer[r] = '\0';
 	if (r == -1)
@@ -87,6 +92,8 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		if (r < BUFFER_SIZE && !(check_line(buffover)))
 		{
+			printf("fin\n");
+			r = 0;
 			rtn_check = 1;
 			break ;
 		}
