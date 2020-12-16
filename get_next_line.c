@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/16 14:43:23 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 16:37:19 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,18 @@ int		check_line(char *str)
 	return (0);
 }
 
-int		init(char **line, int fd, char *buffer)
+int		init(char **line, int fd, char *buffer, char *buffover)
 {
-	if (line == NULL || fd == -1 || BUFFER_SIZE <= 0)
+	if (fd == -1 || BUFFER_SIZE <= 0)
 		return (0);
 	*line = ft_calloc(1, sizeof(char));
 	if (*line == NULL)
 		return (0);
 	ft_bzero(buffer, BUFFER_SIZE);
+	if (ft_strlen(buffover) == 0)
+		ft_bzero(buffover, BUFFER_SIZE);
 	return (1);
+
 }
 
 int		cut_string(char **line, char *buffover, char *buffer, int r)
@@ -43,16 +46,19 @@ int		cut_string(char **line, char *buffover, char *buffer, int r)
 
 	i = 0;
 	if (ft_strlen(buffer) == 0 && ft_strlen(buffover) > 0)
-		ft_strlcpy(buffer, buffover, BUFFER_SIZE);
+		ft_strlcpy(buffer, buffover, BUFFER_SIZE);//comparer len(buffover) a BUFFERSZ pour optimiser
 	while (buffer[i] != '\n' && buffer[i] != '\0')
 		i++;
+	ft_bzero(buffover, BUFFER_SIZE);
 	ft_strlcpy(buffover, buffer + i + 1, BUFFER_SIZE + 1);
 	buffer[i] = 0;
+
 	if (!(*line = ft_strjoin(*line, buffer)))
 	{
 		free(*line);
 		return (0);
 	}
+		
 	ft_bzero(buffer, BUFFER_SIZE);
 	if (r > 0)
 		return (1);
@@ -68,11 +74,14 @@ int		read_line(char **line, int fd, char *buffer, char *buffover)
 		free(*line);
 		return (0);
 	}
+		
 	r = read(fd, buffer, BUFFER_SIZE);
 	buffer[r] = '\0';
 	if (r == -1)
 		return (-1);
+	ft_bzero(buffover, BUFFER_SIZE);
 	ft_strlcpy(buffover, buffer, BUFFER_SIZE + 1);
+
 	return (r);
 }
 
@@ -83,7 +92,7 @@ int		get_next_line(int fd, char **line)
 	int			rtn_check;
 	char		buffer[BUFFER_SIZE + 1];
 
-	if (!init(line, fd, buffer))
+	if (!init(line, fd, buffer, buffover))
 		return (-1);
 	while (!(rtn_check = check_line(buffover)))
 	{
@@ -92,7 +101,6 @@ int		get_next_line(int fd, char **line)
 			return (-1);
 		if (r < BUFFER_SIZE && !(check_line(buffover)))
 		{
-			printf("fin\n");
 			r = 0;
 			rtn_check = 1;
 			break ;
