@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/02 12:57:20 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/15 11:11:50 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/16 08:47:16 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,8 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 
-char	*ft_strdup(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
 int		ft_strlen(const char *str);
-char	*ft_substr(const char *str, unsigned int start, size_t len);
-char	*ft_strcpy(char *dst, char *src);
 char	*ft_strlcpy(char *dst, const char *src, size_t dstsize);
 void	*ft_calloc(size_t count, size_t size);
 void	ft_bzero(void *s, size_t n);
