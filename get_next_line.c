@@ -6,12 +6,11 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/17 11:42:02 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 11:46:30 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#define BUFFER_SIZE 10
 
 int		check_line(char *str)
 {
