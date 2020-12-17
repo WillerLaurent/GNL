@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:36:09 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/16 11:53:34 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/17 10:06:17 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ char	*ft_strjoin(char *s1, char *s2)
 	}
 	str[i + j] = 0;
 	free(s1);
+	s1 = NULL;
 	return (str);
 }
 
