@@ -6,34 +6,23 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/03 14:36:09 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/18 10:53:14 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 11:48:10 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 char	*ft_strjoin(char *s1, char *s2)
 {
 	int		i;
 	int		j;
 	char	*str;
-	int		s1_len;
-	int 	s2_len;
 
 	i = 0;
 	j = 0;
-	printf("s1 = [%s]\n", s1);
-		printf("s2 = [%s]\n", s2);
-
-
-	s1_len = ft_strlen(s1);
-	s2_len = ft_strlen(s2);
-	if (!(str = malloc(sizeof(char) * (s1_len + s2_len + 1))))
+	if (!(str = malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1))))
 		return (NULL);
 	str[0] = 0;
-			//	printf("line avant join = [%s]\n", str);
-
 	while (s1[i])
 	{
 		str[i] = s1[i];
@@ -47,8 +36,6 @@ char	*ft_strjoin(char *s1, char *s2)
 	str[i + j] = 0;
 	free(s1);
 	s1 = NULL;
-	printf("line apres join = [%s]\n", str);
-
 	return (str);
 }
 
@@ -69,7 +56,6 @@ char	*ft_strlcpy(char *dst, const char *src, size_t dstsize)
 	size_t i;
 
 	i = 0;
-	printf("strlcpy : l = %zu, dst = [%s], src = [%s] \n", dstsize, dst, src);
 	if (dstsize > 0)
 	{
 		while (i < (dstsize - 1) && src[i])
