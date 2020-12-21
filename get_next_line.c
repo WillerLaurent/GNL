@@ -6,7 +6,7 @@
 /*   By: lwiller <lwiller@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/10 07:18:39 by lwiller           #+#    #+#             */
-/*   Updated: 2020/12/21 11:37:53 by lwiller          ###   ########lyon.fr   */
+/*   Updated: 2020/12/21 17:06:01 by lwiller          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,7 @@ int	get_next_line(int fd, char **line)
 	static char	buffover[BUFFER_SIZE + 1];
 	int			r;
 	int			rtn_check;
-	int			rtn_cut;
 
-	rtn_cut = 0;
 	if (!init(line, fd, buffover))
 		return (-1);
 	while ((rtn_check = check_line(buffover)) == -1)
